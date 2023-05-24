@@ -12,14 +12,12 @@
   <%= @restaurant.category %>
 </p>
 <% if @restaurant.reviews.empty? %>
-  <p>
-    Be the first to <%= link_to 'add a review', new_restaurant_review_path(@restaurant) %>
-  </p>
+  <p>Be the first to add a review</p>
 <% else %>
   <p><strong>Reviews:</strong></p>
   <ul class="list-group">
     <% @restaurant.reviews.each do |review| %>
-      <li>
+      <li class="list-group-item">
         Rating: <%= review.rating %>
         <br>
         <%= review.content %>
@@ -27,5 +25,13 @@
     <% end %>
   </ul>
 <% end %>
+<div class="w-50 border rounded p-3 my-3">
+  <p><strong>New Review:</strong></p>
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating, as: :numeric, inclusion: Review::RATINGS_RANGE %>
+    <%= f.submit "Submit review", class: 'btn btn-primary' %>
+  <% end %>
+</div>
 <hr>
 <%= link_to 'Back to all Restaurants', root_path %>
