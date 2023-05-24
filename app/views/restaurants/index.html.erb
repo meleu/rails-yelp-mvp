@@ -1,0 +1,7 @@
+<h1>Yelp MVP</h1>
+<ul>
+  <% @restaurants.each do |restaurant| %>
+    <li><%= link_to restaurant.name, restaurant %></li>
+  <% end %>
+</ul>
+<%= link_to 'Add a Restaurant', new_restaurant_path %>
